@@ -6,3 +6,13 @@ datasource db {
   provider = "sqlite"
   url      = env("DATABASE_URL")
 }
+
+model Book {
+  id           String @id @default(uuid())
+  title        String
+  descripttion String
+  bar_code     String @unique
+  
+  //defining table name
+  @@map("books")
+}
