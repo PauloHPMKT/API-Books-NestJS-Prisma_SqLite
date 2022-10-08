@@ -21,4 +21,25 @@ export class BooksService {
 
     return newBook;
   }
+
+  async findAllBooks() {
+    return this.primaModel.book.findMany();
+  }
+
+  async updateBook(id: string, data: CreateBookDto) {
+    const bookExists = await this.primaModel.book.findUnique({
+      where: {
+        id,
+      },
+    });
+
+    if (!bookExists) throw new Error('Livro inexistente');
+
+    return await this.primaModel.book.update({
+      data,
+      where: {
+        id,
+      },
+    });
+  }
 }
