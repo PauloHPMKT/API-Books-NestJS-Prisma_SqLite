@@ -42,4 +42,20 @@ export class BooksService {
       },
     });
   }
+
+  async removeBook(id: string) {
+    const bookExists = await this.primaModel.book.findUnique({
+      where: {
+        id,
+      },
+    });
+
+    if (!bookExists) throw new Error('Livro inexistente');
+
+    return await this.primaModel.book.delete({
+      where: {
+        id,
+      },
+    });
+  }
 }
